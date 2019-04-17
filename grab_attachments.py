@@ -7,5 +7,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     gmail = mail_toolbox.FetchMail('imap.gmail.com', 'fileinputs@gmail.com', args.password)
-    senders = gmail.show_senders()
-    print(senders)
+    messages = gmail.fetch_unread_messages()
+    for i, msg in enumerate(messages):
+        path = gmail.save_attachment(msg)
+        print(f'File {i+1} written in {path}')
+

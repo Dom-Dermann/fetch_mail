@@ -16,7 +16,7 @@ class FetchMail():
         """
         self.con.close()
     
-    def save_attachment(self, msg, download_folder="~/Desktop/vmShared/grab_mail"):
+    def save_attachment(self, msg, download_folder='/home/domdom/Desktop/downloads'):
         """
         Save attachments form given message to specified folder
 
@@ -33,9 +33,9 @@ class FetchMail():
             att_path = os.path.join(download_folder, filename)
 
             if not os.path.isfile(att_path):
-                fp = open(att_path, 'wb')
-                fp.write(part.get_payload(decode=True))
-                fp.close()
+                print(" ---- writing file ---- ")
+                with open(att_path, 'wb') as f:
+                    f.write(part.get_payload(decode=True))
         return att_path
 
     def fetch_unread_messages(self):
@@ -45,7 +45,7 @@ class FetchMail():
         emails=[]
         result, messages = self.con.search(None, 'Unseen')
         if result == 'OK':
-            for message in messages[0].split(' '):
+            for message in messages[0].split():
                 try:
                     ret, data = self.con.fetch(message, '(RFC822)')
                 except:
