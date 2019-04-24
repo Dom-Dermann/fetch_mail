@@ -4,7 +4,7 @@ import graph_converter as gc
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser("Please provide the password.")
-    parser.add_argument('--password', '-p', help="provide password to gmail.")
+    parser.add_argument('--password', '-p', help="provide password to gmail.", required=True)
     args = parser.parse_args()
 
     gmail = mail_toolbox.FetchMail('imap.gmail.com', 'fileinputs@gmail.com', args.password)
